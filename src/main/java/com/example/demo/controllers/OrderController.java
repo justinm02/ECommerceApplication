@@ -24,11 +24,10 @@ public class OrderController {
 	private static final Logger log = LoggerFactory.getLogger(OrderController.class);
 
 	@Autowired
-	private UserRepository userRepository;
+	public UserRepository userRepository;
 	
 	@Autowired
-	private OrderRepository orderRepository;
-	
+	public OrderRepository orderRepository;
 	
 	@PostMapping("/submit/{username}")
 	public ResponseEntity<UserOrder> submit(@PathVariable String username) {

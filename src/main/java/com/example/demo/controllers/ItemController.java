@@ -17,7 +17,7 @@ import com.example.demo.Model.persistence.repositories.ItemRepository;
 public class ItemController {
 
 	@Autowired
-	private ItemRepository itemRepository;
+	public ItemRepository itemRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Item>> getItems() {
