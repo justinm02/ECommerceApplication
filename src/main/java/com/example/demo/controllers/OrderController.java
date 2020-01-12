@@ -24,22 +24,23 @@ public class OrderController {
 	private static final Logger log = LoggerFactory.getLogger(OrderController.class);
 
 	@Autowired
-	private UserRepository userRepository;
+	public UserRepository userRepository;
 	
 	@Autowired
-	private OrderRepository orderRepository;
-	
+	public OrderRepository orderRepository;
 	
 	@PostMapping("/submit/{username}")
 	public ResponseEntity<UserOrder> submit(@PathVariable String username) {
 		User user = userRepository.findByUsername(username);
-		log.debug("Username requested: {} Actual username {}", username, user.getUsername());
 
 		if(user == null) {
+			log.error("Order Request Failure: User {} was not found", username);
 			return ResponseEntity.notFound().build();
 		}
 		UserOrder order = UserOrder.createFromCart(user.getCart());
 		orderRepository.save(order);
+		log.info("Order Request Success: User {} was found with order submitted", username);
+
 		return ResponseEntity.ok(order);
 	}
 	
